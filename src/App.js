@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CustomerProfile from './components/CustomerProfile';
 import BankingServices from './components/BankingServices';
 import Transactions from './components/Transactions';
+import AdminPage from './components/AdminPage';
 
 import './styles/App.css';
 
@@ -20,6 +21,7 @@ function App() {
                   <Route path="/profile" element={<CustomerProfile />} />
                   <Route path="/banking-services" element={<BankingServices accountNumber={accountNumber} />} />
                   <Route path="/transactions" element={<Transactions accountNumber={accountNumber} />} />
+                  <Route path="/admin" element={<AdminPage />} />
               </Routes>
           </div>
           <div>

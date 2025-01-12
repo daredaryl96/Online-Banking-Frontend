@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 
-function Transactions({ accountId }) {
+function Transactions({ accountNumber }) {
     const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         // Fetch transaction history for the account
-        api.get(`/banking/accounts/${accountId}/transactions`)
+        api.get(`/banking/accounts/${accountNumber}/transactions`)
             .then((response) => {
                 setTransactions(response.data);
             })
             .catch((error) => console.error('Error fetching transactions:', error));
-    }, [accountId]);
+    }, [accountNumber]);
 
     return (
         <div>

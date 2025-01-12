@@ -5,29 +5,72 @@ function BankingServices() {
     const [accountNumber, setAccountNumber] = useState('');
     const [accountDetails, setAccountDetails] = useState(null);
     const [transactionHistory, setTransactionHistory] = useState([]);
+    const [transactionType, setTransactionType] = useState('DEPOSIT');
+    const [transactionAmount, setTransactionAmount] = useState('');
+    const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
+    // Fetch account details
     const fetchAccountDetails = () => {
+        if (!accountNumber) {
+            setError('Please enter an account number.');
+            return;
+        }
         api.get(`/banking/accounts/${accountNumber}`)
             .then((response) => {
                 setAccountDetails(response.data);
                 setError('');
             })
-            .catch((err) => {
+            .catch(() => {
                 setError('Error fetching account details. Please check the account number.');
                 setAccountDetails(null);
             });
     };
 
+    // Fetch transaction history
     const fetchTransactionHistory = () => {
+        if (!accountNumber) {
+            setError('Please enter an account number.');
+            return;
+        }
         api.get(`/banking/accounts/${accountNumber}/transactions`)
             .then((response) => {
                 setTransactionHistory(response.data);
                 setError('');
             })
-            .catch((err) => {
+            .catch(() => {
                 setError('Error fetching transaction history.');
                 setTransactionHistory([]);
+            });
+    };
+
+    // Perform a transaction (deposit or withdrawal)
+    const handleTransaction = () => {
+        if (!accountNumber) {
+            setError('Please enter an account number to perform a transaction.');
+            return;
+        }
+        if (!transactionAmount || parseFloat(transactionAmount) <= 0) {
+            setError('Please enter a valid transaction amount.');
+            return;
+        }
+
+        const payload = {
+            accountNumber,
+            transactionType,
+            amount: parseFloat(transactionAmount),
+        };
+
+        api.post(`/banking/accounts/${accountNumber}/transactions`, payload)
+            .then((response) => {
+                setMessage(`Transaction successful: ${response.data.transactionType} of ${response.data.amount}`);
+                setTransactionAmount('');
+                setError('');
+                fetchTransactionHistory(); // Optionally refresh transaction history
+            })
+            .catch(() => {
+                setError('Transaction failed. Please try again.');
+                setMessage('');
             });
     };
 
@@ -35,6 +78,7 @@ function BankingServices() {
         <div>
             <h2>Banking Services</h2>
             <div>
+                <h3>Account Operations</h3>
                 <label>
                     Account Number:
                     <input
@@ -48,12 +92,13 @@ function BankingServices() {
             </div>
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            {message && <p style={{ color: 'green' }}>{message}</p>}
 
             {accountDetails && (
                 <div>
                     <h3>Account Details</h3>
                     <p>Account Number: {accountDetails.accountNumber}</p>
-                    <p>Balance: {accountDetails.balance}</p>
+                    <p>Balance: {accountDetails.balance.toFixed(2)}</p>
                 </div>
             )}
 
@@ -69,17 +114,48 @@ function BankingServices() {
                             </tr>
                         </thead>
                         <tbody>
-                        {transactionHistory.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td>{new Date(transaction.timestamp).toLocaleDateString()}</td>
-                                <td>{transaction.transactionType}</td>
-                                <td>{transaction.amount.toFixed(2)}</td>
-                            </tr>
-                        ))}
+                            {transactionHistory.map((transaction) => (
+                                <tr key={transaction.id}>
+                                    <td>{new Date(transaction.timestamp).toLocaleDateString()}</td>
+                                    <td>{transaction.transactionType}</td>
+                                    <td>{transaction.amount.toFixed(2)}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
             )}
+
+            <div>
+                <h3>Perform a Transaction</h3>
+                <label>
+                    Account Number:
+                    <input
+                        type="text"
+                        value={accountNumber}
+                        onChange={(e) => setAccountNumber(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Transaction Type:
+                    <select
+                        value={transactionType}
+                        onChange={(e) => setTransactionType(e.target.value)}
+                    >
+                        <option value="DEPOSIT">Deposit</option>
+                        <option value="WITHDRAWAL">Withdrawal</option>
+                    </select>
+                </label>
+                <label>
+                    Amount:
+                    <input
+                        type="number"
+                        value={transactionAmount}
+                        onChange={(e) => setTransactionAmount(e.target.value)}
+                    />
+                </label>
+                <button onClick={handleTransaction}>Submit Transaction</button>
+            </div>
         </div>
     );
 }

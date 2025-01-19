@@ -1,0 +1,89 @@
+.banking-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.banking-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.banking-form label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.banking-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.fetch-button {
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.fetch-button:hover {
+    background-color: #574dcf;
+}
+
+.account-details {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.transaction-form {
+    margin-top: 20px;
+}
+
+.transaction-form label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.transaction-form select, .transaction-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.transaction-button {
+    background-color: #6c63ff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.transaction-button:hover {
+    background-color: #574dcf;
+}
+
+.error-message {
+    color: #f44336;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: #4caf50;
+    margin-top: 10px;
+}

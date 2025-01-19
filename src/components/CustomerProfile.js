@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/api';
+import '../styles/ProfilePage.css';
 
 function CustomerProfile() {
     const [customer, setCustomer] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
 
-    const customerId = 1; // Replace with actual logged-in customer's ID - to be developed with authentication
+    const customerId = 1; // Replace with dynamic user authentication data
 
     useEffect(() => {
-        // Fetch customer details
         api.get(`/users/${customerId}`)
             .then((response) => {
                 setCustomer(response.data);
@@ -33,10 +33,10 @@ function CustomerProfile() {
     };
 
     return (
-        <div>
-            <h2>Customer Profile</h2>
+        <div className="profile-container">
+            <h2 className="profile-title">Customer Profile</h2>
             {isEditing ? (
-                <div>
+                <div className="profile-form">
                     <label>
                         Full Name:
                         <input
@@ -55,18 +55,26 @@ function CustomerProfile() {
                             onChange={handleInputChange}
                         />
                     </label>
-                    <button onClick={handleSave}>Save</button>
-                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    <div className="profile-buttons">
+                        <button className="save-button" onClick={handleSave}>
+                            Save
+                        </button>
+                        <button className="cancel-button" onClick={() => setIsEditing(false)}>
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             ) : (
-                <div>
+                <div className="profile-details">
                     <p>
                         <strong>Full Name:</strong> {customer.fullName}
                     </p>
                     <p>
                         <strong>Email:</strong> {customer.email}
                     </p>
-                    <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+                    <button className="edit-button" onClick={() => setIsEditing(true)}>
+                        Edit Profile
+                    </button>
                 </div>
             )}
         </div>

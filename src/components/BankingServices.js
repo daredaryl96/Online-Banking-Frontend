@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api/api';
+import '../styles/BankingServices.css'; // Importing the CSS file
 
 function BankingServices() {
     const [accountNumber, setAccountNumber] = useState('');
@@ -75,9 +76,10 @@ function BankingServices() {
     };
 
     return (
-        <div>
-            <h2>Banking Services</h2>
-            <div>
+        <div className="banking-container">
+            <h2 className="banking-title">Banking Services</h2>
+
+            <div className="banking-form">
                 <h3>Account Operations</h3>
                 <label>
                     Account Number:
@@ -87,15 +89,15 @@ function BankingServices() {
                         onChange={(e) => setAccountNumber(e.target.value)}
                     />
                 </label>
-                <button onClick={fetchAccountDetails}>Get Account Details</button>
-                <button onClick={fetchTransactionHistory}>Get Transaction History</button>
+                <button className="fetch-button" onClick={fetchAccountDetails}>Get Account Details</button>
+                <button className="fetch-button" onClick={fetchTransactionHistory}>Get Transaction History</button>
             </div>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {message && <p style={{ color: 'green' }}>{message}</p>}
+            {error && <p className="error-message">{error}</p>}
+            {message && <p className="success-message">{message}</p>}
 
             {accountDetails && (
-                <div>
+                <div className="account-details">
                     <h3>Account Details</h3>
                     <p>Account Number: {accountDetails.accountNumber}</p>
                     <p>Balance: {accountDetails.balance.toFixed(2)}</p>
@@ -126,7 +128,7 @@ function BankingServices() {
                 </div>
             )}
 
-            <div>
+            <div className="transaction-form">
                 <h3>Perform a Transaction</h3>
                 <label>
                     Account Number:
@@ -154,7 +156,7 @@ function BankingServices() {
                         onChange={(e) => setTransactionAmount(e.target.value)}
                     />
                 </label>
-                <button onClick={handleTransaction}>Submit Transaction</button>
+                <button className="transaction-button" onClick={handleTransaction}>Submit Transaction</button>
             </div>
         </div>
     );

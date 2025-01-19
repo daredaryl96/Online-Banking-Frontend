@@ -1,0 +1,129 @@
+/* Global Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #e0e7ff);
+}
+
+/* Main Page */
+.main-page {
+    padding: 40px;
+    text-align: center;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #6c63ff;
+    color: white;
+    padding: 60px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.hero-section:hover {
+    transform: scale(1.05);
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero-button {
+    background-color: #0047ab;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+    background-color: #3a65ff;
+    transform: translateY(-5px);
+}
+
+/* Features Section */
+.features-section {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    gap: 30px;
+    animation: slideIn 1s ease-in-out;
+}
+
+.feature {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 250px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature-title {
+    font-size: 1.6rem;
+    color: #0047ab;
+    margin-bottom: 15px;
+}
+
+.feature-description {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Footer */
+.footer {
+    background-color: #0047ab;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 60px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

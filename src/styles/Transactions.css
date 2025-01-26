@@ -1,0 +1,65 @@
+/* Transactions Page Styling */
+.transactions-container {
+    margin: 2rem auto;
+    padding: 2rem;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transactions-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+    margin-top: 0%;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.transactions-table th,
+.transactions-table td {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+}
+
+.transactions-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #555;
+    text-align: left;
+}
+
+.transactions-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.transactions-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.transactions-table td {
+    color: #555;
+}
+
+.transactions-table td:nth-child(3) {
+    text-align: right; /* Align the amount column to the right */
+}
+
+.no-transactions {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 1.5rem;
+}

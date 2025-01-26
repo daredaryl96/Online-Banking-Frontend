@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
+import '../styles/Transactions.css';
 
 function Transactions({ accountNumber }) {
     const [transactions, setTransactions] = useState([]);
@@ -14,29 +15,31 @@ function Transactions({ accountNumber }) {
     }, [accountNumber]);
 
     return (
-        <div>
+        <div className="transactions-container">
             <h2>Transaction History</h2>
             {transactions.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {transactions.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td>{new Date(transaction.timestamp).toLocaleDateString()}</td>
-                                <td>{transaction.transactionType}</td>
-                                <td>{transaction.amount.toFixed(2)}</td>
+                <div className="table-wrapper">
+                    <table className="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Transaction Type</th>
+                                <th>Amount (USD)</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {transactions.map((transaction) => (
+                                <tr key={transaction.id}>
+                                    <td>{new Date(transaction.timestamp).toLocaleString()}</td>
+                                    <td>{transaction.transactionType}</td>
+                                    <td>${transaction.amount.toFixed(2)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
-                <p>No transactions available.</p>
+                <p className="no-transactions">No transactions available.</p>
             )}
         </div>
     );

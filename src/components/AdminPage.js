@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../api/api';
 import '../styles/AdminPage.css';
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function AdminPage() {
     const [users, setUsers] = useState([]);
@@ -12,6 +14,10 @@ function AdminPage() {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+
+    const { user } = useContext(AuthContext);
+
 
     const fetchUsers = () => {
         api.get('/users')
@@ -75,6 +81,11 @@ function AdminPage() {
             return () => clearTimeout(timeout);
         }
     }, [message, error]);
+
+    if (!user || user.role !== "ADMIN") {
+        return <Navigate to="/" />;
+    }
+
 
     return (
         <div className="admin-container">

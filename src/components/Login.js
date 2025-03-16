@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";  // Your API instance for making requests
 import { AuthContext } from "../context/AuthContext";
+import '../styles/Login.css';
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -19,13 +20,16 @@ function Login() {
             login(response.data);  // Save user in AuthContext
             navigate("/");  // Redirect to home
         } catch (err) {
-            setError("Invalid username or password.");
+            setError("Invalid credentials");
         }
     };
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
+            <div className="login-hero-section">
+                <h2 className="login-hero-title">Welcome Back!</h2>
+                <p className="login-hero-description">Please login to access your account.</p>
+            </div>
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <input

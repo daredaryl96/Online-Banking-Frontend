@@ -15,6 +15,8 @@ function AdminPage() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
+    const [role, setRole] = useState('CUSTOMER'); //to make this a dynamic feature in the future
+
 
     const { user } = useContext(AuthContext);
 
@@ -37,7 +39,7 @@ function AdminPage() {
         }
 
         setIsLoading(true);
-        const newUser = { username, password, email, fullName, phoneNumber };
+        const newUser = { username, password, email, fullName, phoneNumber, role  };
 
         api.post('/users', newUser)
             .then((response) => {
@@ -156,6 +158,19 @@ function AdminPage() {
                             placeholder="Enter phone number"
                         />
                     </div>
+
+                    <div className="form-group">
+                        <label htmlFor="role">Role:</label>
+                        <select
+                            id="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}>
+                            <option value="USER">User</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+
+
 
                     <button type="submit" className="btn-submit" disabled={isLoading}>
                         {isLoading ? 'Creating...' : 'Create User'}

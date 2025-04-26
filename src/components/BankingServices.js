@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../api/api';
-import '../styles/BankingServices.css'; // Importing the CSS file
+import '../styles/BankingServices.css';
+import { AuthContext } from '../context/AuthContext';
 
 function BankingServices() {
+    const { user } = useContext(AuthContext);
     const [accountNumber, setAccountNumber] = useState('');
     const [accountDetails, setAccountDetails] = useState(null);
     const [transactionHistory, setTransactionHistory] = useState([]);
@@ -10,6 +12,13 @@ function BankingServices() {
     const [transactionAmount, setTransactionAmount] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+
+
+    useEffect(() => {
+        if (user?.accounts?.length > 0) {
+            setAccountNumber(user.accounts[0].accountNumber);
+        }
+    }, [user]); 
 
     // Fetch account details
     const fetchAccountDetails = () => {

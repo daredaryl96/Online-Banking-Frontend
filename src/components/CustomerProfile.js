@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
 import api from '../api/api';
+import { AuthContext } from "../context/AuthContext";
 import '../styles/ProfilePage.css';
 
 function CustomerProfile() {
+    const { user } = useContext(AuthContext);  // Access logged-in user from AuthContext
     const [customer, setCustomer] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
@@ -10,8 +12,9 @@ function CustomerProfile() {
     const customerId = 1; // Replace with dynamic user authentication data
 
     useEffect(() => {
-        api.get(`/users/${customerId}`)
+        api.get(`/users/${user.id}`)
             .then((response) => {
+                console.log('User data fetched:', response.data); // Log the fetched data
                 setCustomer(response.data);
                 setFormData(response.data);
             })

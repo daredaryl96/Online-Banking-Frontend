@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import api from '../api/api';
 import '../styles/Transactions.css';
+import { AuthContext } from "../context/AuthContext";
 
-function Transactions({ accountNumber }) {
+function Transactions() {
+    const { user } = useContext(AuthContext);
     const [transactions, setTransactions] = useState([]);
+    const accountNumber = user?.accounts?.[0]?.accountNumber;
 
     useEffect(() => {
+        if (!accountNumber) {
+            console.error('Account number is undefined. Cannot fetch transactions.');
+            return;
+        }
+
         // Fetch transaction history for the account
         api.get(`/banking/accounts/${accountNumber}/transactions`)
             .then((response) => {
